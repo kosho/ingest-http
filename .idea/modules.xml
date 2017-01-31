@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ingest-http.iml" filepath="$PROJECT_DIR$/.idea/modules/ingest-http.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ingest-http_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ingest-http_main.iml" group="ingest-http" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ingest-http_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ingest-http_test.iml" group="ingest-http" />
+    </modules>
+  </component>
+</project>

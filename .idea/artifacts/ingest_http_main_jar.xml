@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ingest-http_main:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ingest_http_main_jar</output-path>
+    <root id="archive" name="ingest-http_main.jar">
+      <element id="module-output" name="ingest-http_main" />
+    </root>
+  </artifact>
+</component>

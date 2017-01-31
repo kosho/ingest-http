@@ -84,7 +84,7 @@ public final class HttpProcessor extends AbstractProcessor {
             };
 
             String responseBody = httpclient.execute(httpget, responseHandler);
-            logger.info("responseBody: " + responseBody);
+            logger.debug("responseBody: " + responseBody);
 
             Map<String, Object> mapValue = JsonXContent.jsonXContent.createParser(responseBody).map();
             ingestDocument.setFieldValue(targetField, mapValue);

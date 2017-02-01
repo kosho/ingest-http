@@ -58,7 +58,7 @@ POST _ingest/pipeline/_simulate
       {
         "http" : {
           "field": "ip",
-          "target_field: "response",
+          "target_field": "response",
           "ignore_missing": true,
           "url_prefix" : "http://freegeoip.net/json/{}"
         }

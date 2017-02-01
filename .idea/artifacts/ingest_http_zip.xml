@@ -2,7 +2,7 @@
   <artifact name="ingest-http:zip">
     <output-path>$PROJECT_DIR$/out/artifacts/ingest_http_zip</output-path>
     <root id="root">
-      <element id="archive" name="ingest-http-5.1.2.zip">
+      <element id="archive" name="ingest-http-5.2.0.zip">
         <element id="directory" name="elasticsearch">
           <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources/plugin-metadata" />
           <element id="artifact" artifact-name="ingest-http_main:jar" />

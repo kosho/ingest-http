@@ -4,7 +4,7 @@ The ingest HTTP plugin lets Elasticsearch to call an external web service and su
 
 ## Downloads
 
-[ingest-http-5.1.2.zip](https://github.com/kosho/ingest-http/releases/download/5.1.2/ingest-http-5.1.2.zip)
+[ingest-http-5.2.0.zip](https://github.com/kosho/ingest-http/releases/download/5.2.0/ingest-http-5.2.0.zip)
 
 ## How to build
 
@@ -14,7 +14,7 @@ This repository is an IntelliJ IDEA project with `.idea` directory. In order to 
 
 ### Dependencies
 
-- Elasticsearch 5.1.2
+- Elasticsearch 5.2.0
 - org.apache.httpcomponents:httpclient:4.5.3
 
 ## Usages

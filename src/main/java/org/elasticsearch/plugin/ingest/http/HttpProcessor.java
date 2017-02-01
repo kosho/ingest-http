@@ -9,6 +9,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import org.elasticsearch.common.xcontent.json.JsonXContentParser;
 import org.elasticsearch.ingest.AbstractProcessor;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
@@ -20,7 +21,10 @@ import static org.elasticsearch.ingest.ConfigurationUtils.readStringProperty;
 import static org.elasticsearch.ingest.ConfigurationUtils.readBooleanProperty;
 
 import org.apache.logging.log4j.Logger;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentParser;
 import org.elasticsearch.common.xcontent.json.JsonXContent;
+import org.elasticsearch.common.xcontent.NamedXContentRegistry;
 
 import org.elasticsearch.common.logging.Loggers;
 
@@ -86,7 +90,7 @@ public final class HttpProcessor extends AbstractProcessor {
             String responseBody = httpclient.execute(httpget, responseHandler);
             logger.debug("responseBody: " + responseBody);
 
-            Map<String, Object> mapValue = JsonXContent.jsonXContent.createParser(responseBody).map();
+            Map<String, Object> mapValue = JsonXContent.jsonXContent.createParser(NamedXContentRegistry.EMPTY, responseBody).map();
             ingestDocument.setFieldValue(targetField, mapValue);
 
         } finally {

@@ -91,7 +91,7 @@ POST _ingest/pipeline/_simulate
       {
         "http" : {
           "field": "host",
-          "url_prefix" : "http://localhost:9200/malicious_websites/_search?q=host:{}&size=1",
+          "url_prefix" : "http://localhost:9200/malicious-website-list/_search?q=host:{}&size=1",
           "extra_header": "Authorization: Basic ZWxhc3RpYzpjaGFuZ2VtZQ=="
         }
       }

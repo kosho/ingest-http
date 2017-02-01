@@ -35,6 +35,7 @@ public final class HttpProcessor extends AbstractProcessor {
     private final String field;
     private final String urlPrefix;
     private final String targetField;
+    private final String extraHeader;
 
     private final Logger logger;
 
@@ -44,13 +45,14 @@ public final class HttpProcessor extends AbstractProcessor {
 
     private final boolean ignoreMissing;
 
-    HttpProcessor(String tag, String field, String targetField, String urlPrefix,
+    HttpProcessor(String tag, String field, String targetField, String urlPrefix, String extraHeader,
                   boolean ignoreMissing) throws IOException {
         super(tag);
         this.field = field;
         this.urlPrefix = urlPrefix;
         this.targetField = targetField;
         this.ignoreMissing = ignoreMissing;
+        this.extraHeader = extraHeader;
         this.logger = Loggers.getLogger(IngestHttpPlugin.class);
     }
 
@@ -71,6 +73,12 @@ public final class HttpProcessor extends AbstractProcessor {
         try {
             HttpGet httpget = new HttpGet(urlPrefix.replace("{}", fieldValue));
 
+            if (extraHeader != null) {
+                if (extraHeader.indexOf(":") > 0){
+                    httpget.addHeader(extraHeader.substring(0, extraHeader.indexOf(":")).trim(), extraHeader.substring(extraHeader.indexOf(":") + 1).trim());
+                }
+            }
+
             ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 
                 @Override
@@ -84,7 +92,6 @@ public final class HttpProcessor extends AbstractProcessor {
                         throw new ClientProtocolException("Unexpected response status: " + status);
                     }
                 }
-
             };
 
             String responseBody = httpclient.execute(httpget, responseHandler);
@@ -116,6 +123,8 @@ public final class HttpProcessor extends AbstractProcessor {
         return urlPrefix;
     }
 
+    String getExtraHeader() { return extraHeader; }
+
 
     public static final class Factory implements Processor.Factory {
 
@@ -125,9 +134,10 @@ public final class HttpProcessor extends AbstractProcessor {
             String field = readStringProperty(TYPE, processorTag, config, "field");
             String urlPrefix = readStringProperty(TYPE, processorTag, config, "url_prefix");
             String targetField = readStringProperty(TYPE, processorTag, config, "target_field", "out");
+            String extraHeader = readStringProperty(TYPE, processorTag, config, "extra_header", "");
             boolean ignoreMissing = readBooleanProperty(TYPE, processorTag, config, "ignore_missing", false);
 
-            return new HttpProcessor(processorTag, field, targetField, urlPrefix, ignoreMissing);
+            return new HttpProcessor(processorTag, field, targetField, urlPrefix, extraHeader, ignoreMissing);
         }
     }
 

@@ -71,7 +71,9 @@ public final class HttpProcessor extends AbstractProcessor {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         try {
-            HttpGet httpget = new HttpGet(urlPrefix.replace("{}", fieldValue));
+            String url = urlPrefix.replace("{}", fieldValue);
+            logger.debug("url: " + url);
+            HttpGet httpget = new HttpGet(url);
 
             if (extraHeader != null) {
                 if (extraHeader.indexOf(":") > 0){

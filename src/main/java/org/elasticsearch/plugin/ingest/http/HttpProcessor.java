@@ -16,6 +16,7 @@ import org.elasticsearch.ingest.Processor;
 
 import java.io.IOException;
 import java.util.Map;
+import java.net.URLEncoder;
 
 import static org.elasticsearch.ingest.ConfigurationUtils.readStringProperty;
 import static org.elasticsearch.ingest.ConfigurationUtils.readBooleanProperty;
@@ -68,16 +69,17 @@ public final class HttpProcessor extends AbstractProcessor {
             throw new IllegalArgumentException("field [" + field + "] is null, cannot extract URL.");
         }
 
-        CloseableHttpClient httpclient = HttpClients.createDefault();
+        String url = urlPrefix.replace("{}", URLEncoder.encode(fieldValue, "UTF-8"));
+        logger.debug("url: " + url);
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
 
         try {
-            String url = urlPrefix.replace("{}", fieldValue);
-            logger.debug("url: " + url);
-            HttpGet httpget = new HttpGet(url);
+            HttpGet httpGet = new HttpGet(url);
 
             if (extraHeader != null) {
                 if (extraHeader.indexOf(":") > 0){
-                    httpget.addHeader(extraHeader.substring(0, extraHeader.indexOf(":")).trim(), extraHeader.substring(extraHeader.indexOf(":") + 1).trim());
+                    httpGet.addHeader(extraHeader.substring(0, extraHeader.indexOf(":")).trim(), extraHeader.substring(extraHeader.indexOf(":") + 1).trim());
                 }
             }
 
@@ -96,14 +98,14 @@ public final class HttpProcessor extends AbstractProcessor {
                 }
             };
 
-            String responseBody = httpclient.execute(httpget, responseHandler);
+            String responseBody = httpClient.execute(httpGet, responseHandler);
             logger.debug("responseBody: " + responseBody);
 
             Map<String, Object> mapValue = JsonXContent.jsonXContent.createParser(NamedXContentRegistry.EMPTY, responseBody).map();
             ingestDocument.setFieldValue(targetField, mapValue);
 
         } finally {
-            httpclient.close();
+            httpClient.close();
         }
 
     }

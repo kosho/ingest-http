@@ -4,7 +4,7 @@ The ingest HTTP plugin lets Elasticsearch to call an external web service and su
 
 ## Downloads
 
-[ingest-http-5.2.0.zip](https://github.com/kosho/ingest-http/releases/download/5.2.0-extra-header/ingest-http-5.2.0.zip)
+[ingest-http-5.2.0.zip](https://github.com/kosho/ingest-http/releases/download/5.2.0-url-encode/ingest-http-5.2.0.zip)
 
 ## How to build
 
